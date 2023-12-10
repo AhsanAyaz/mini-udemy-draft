@@ -1,0 +1,25 @@
+<!-- course-detail.component.html -->
+
+<div class="container mx-auto p-6">
+  <div class="bg-white shadow-lg rounded-lg px-8 pt-6 pb-8 mb-4">
+      <h2 class="text-2xl font-bold mb-2 text-gray-800">{{ course.name }}</h2>
+      <p class="text-gray-700 text-base mb-4">
+          {{ course.description }}
+      </p>
+      <div class="flex items-center justify-end">
+        <button (click)="uploadFile()">Upload</button>
+      </div>
+      <div class="border-t border-gray-300 pt-4">
+          <h3 class="text-lg font-semibold text-gray-800 mb-3">Lectures</h3>
+          <ul class="list-disc pl-5">
+            @for(lecture of course.lectures; track lecture.title) {
+              <li class="mb-2">
+                <span class="text-gray-800 font-medium">{{ lecture.title }}</span> -
+                <span class="text-gray-600">{{ lecture.duration }}</span>
+              </li>
+            }
+
+          </ul>
+      </div>
+  </div>
+</div>
