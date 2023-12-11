@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators, ReactiveFormsModule } from '@angula
 import { FilestackService } from '../../filestack.service';
 import { NgIf } from '@angular/common';
 import { File } from 'filestack-js/build/main/lib/api/upload';
+import { Firestore, addDoc, collection } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-create-course-form',
@@ -15,6 +16,7 @@ export class CreateCourseFormComponent {
   courseForm!: FormGroup;
   image: File | null = null;
   fb = inject(FormBuilder);
+  firestore = inject(Firestore);
   filestackService = inject(FilestackService);
 
   constructor() {
@@ -52,9 +54,11 @@ export class CreateCourseFormComponent {
   }
 
   onSubmit() {
+    const coll = collection(this.firestore, 'courses');
     if (this.courseForm.valid) {
       console.log('Course Data:', this.courseForm.value);
       // Further processing like sending data to the server...
+      addDoc(coll, this.courseForm.value);
     }
   }
 }

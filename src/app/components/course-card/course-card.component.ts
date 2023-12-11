@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Course } from '../../types';
 
 @Component({
   selector: 'app-course-card',
@@ -9,5 +10,5 @@ import { RouterLink } from '@angular/router';
   styleUrl: './course-card.component.scss'
 })
 export class CourseCardComponent {
-
+  @Input() course!: Course;
 }

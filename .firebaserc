@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "mini-udemy-cwa": {
+      "hosting": {
+        "mini-udemy": [
+          "mini-udemy-cwa"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "mini-udemy-cwa"
+  }
+}

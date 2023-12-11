@@ -94,6 +94,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "mini-udemy:build:production",
+              "serveTarget": "mini-udemy:serve:production"
+            },
+            "development": {
+              "buildTarget": "mini-udemy:build:development",
+              "serveTarget": "mini-udemy:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

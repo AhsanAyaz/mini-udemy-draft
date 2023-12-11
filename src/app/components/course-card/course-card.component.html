@@ -1,9 +1,8 @@
 <div routerLink="/courses/123" class="h-full border-2 border-gray-200 rounded-lg overflow-hidden hover:shadow-md cursor-pointer">
-  <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="path_to_course_image" alt="course">
+  <img class="lg:h-48 md:h-36 w-full object-cover object-center" src="{{course.imageUrl}}" alt="course">
   <div class="p-6">
-    <h2 class="text-base font-medium text-indigo-500 mb-1">Category</h2>
-    <h1 class="title-font text-lg font-medium text-gray-900 mb-3">Course Title</h1>
-    <p class="leading-relaxed mb-3">Short description of the course...</p>
+    <h1 class="title-font text-lg font-medium text-gray-900 mb-3">{{course.title}}</h1>
+    <p class="leading-relaxed mb-3">{{course.description}}</p>
     <div class="flex items-center flex-wrap ">
       <a class="text-indigo-500 inline-flex items-center md:mb-2 lg:mb-0">
         Learn More
@@ -15,6 +14,9 @@
       <span class="text-gray-500 mr-3 inline-flex items-center ml-auto">
         <!-- Icons or additional details -->
       </span>
+    </div>
+    <div class="category mt-4">
+      <span class="font-sm bg-blue-600 text-white rounded-md px-1.5 py-1">{{course.category}}</span>
     </div>
   </div>
 </div>

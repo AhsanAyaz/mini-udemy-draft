@@ -1,5 +1,5 @@
 <!-- Page Title -->
-<section class="text-gray-700 body-font">
+<section class="text-gray-700 body-font min-h-screen-minus-header bg-slate-50 flex flex-col justify-center items-center">
   <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
     <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Explore Our Courses</h1>
     <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
@@ -9,18 +9,23 @@
 </section>
 
 <!-- Courses Section -->
-<section class="text-gray-600 body-font">
+<section class="text-gray-600 body-font min-h-screen">
   <div class="flex items-center justify-end">
     <button (click)="isCreateCourseModalOpen = true" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
       Create
     </button>
   </div>
   <div class="container px-5 py-24 mx-auto">
-    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-      <app-course-card></app-course-card>
-      <app-course-card></app-course-card>
-      <app-course-card></app-course-card>
-    </div>
+    @if (!isLoadingCourses) {
+      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        @for (course of courses; track $index) {
+          <app-course-card [course]="course"></app-course-card>
+        }
+        @empty {
+          No courses available
+        }
+      </div>
+    }
   </div>
 </section>
 <app-modal [showModal]="isCreateCourseModalOpen" (closeModal)="isCreateCourseModalOpen = false">
