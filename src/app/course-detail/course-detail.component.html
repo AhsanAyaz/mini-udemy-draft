@@ -23,13 +23,13 @@
           Create
         </button>
       </div>
-      @if (!(lectures$ | async)) {
+      @if (!(lectures)) {
         <div class="w-full py-4 flex items-center justify-center">
           <app-loader></app-loader>
         </div>
       } @else {
         <ul>
-          @for(lecture of lectures$ | async; track lecture.title) {
+          @for(lecture of lectures; track lecture.title) {
             <li class="ml-4">
               <app-lecture-list-item [course]="course" [lecture]="lecture"></app-lecture-list-item>
             </li>

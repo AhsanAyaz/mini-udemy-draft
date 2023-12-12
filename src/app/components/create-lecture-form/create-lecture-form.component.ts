@@ -1,11 +1,5 @@
 import { Component, EventEmitter, Input, Output, inject } from '@angular/core';
 import {
-  Firestore,
-  doc,
-  setDoc,
-  serverTimestamp,
-} from '@angular/fire/firestore';
-import {
   FormGroup,
   FormBuilder,
   Validators,
@@ -22,7 +16,6 @@ import { Course } from '../../types';
 export class CreateLectureFormComponent {
   lectureForm!: FormGroup;
   fb = inject(FormBuilder);
-  firestore = inject(Firestore);
   @Input() course!: Course;
   @Output() formSubmit = new EventEmitter<void>();
 
@@ -30,23 +23,9 @@ export class CreateLectureFormComponent {
     this.lectureForm = this.fb.group({
       title: ['', Validators.required],
       duration: ['', Validators.required],
-      description: ['']
+      description: [''],
     });
   }
 
-  onSubmit() {
-    if (this.lectureForm.valid) {
-      const lectureId = self.crypto.randomUUID();
-      const lectureDocRef = doc(
-        this.firestore,
-        `courses/${this.course.id}/lectures/${lectureId}`
-      );
-      setDoc(lectureDocRef, {
-        id: lectureId,
-        ...this.lectureForm.value,
-        cts: serverTimestamp(),
-      });
-      this.formSubmit.emit();
-    }
-  }
+  onSubmit() {}
 }

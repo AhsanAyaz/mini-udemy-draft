@@ -22,20 +22,14 @@
 <!-- Courses Section -->
 <section class="text-gray-600 body-font min-h-screen mx-4">
   <div class="container px-5 py-2 mx-auto">
-    @if (courses$ | async) {
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        @for (course of courses$ | async; track $index) {
-          <app-course-card [course]="course"></app-course-card>
-        }
-        @empty {
-          No courses available. Create one.
-        }
-      </div>
-    } @else {
-      <div class="flex w-full justify-center">
-        <app-loader></app-loader>
-      </div>
-    }
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      @for (course of courses; track $index) {
+        <app-course-card [course]="course"></app-course-card>
+      }
+      @empty {
+        No courses available. Create one.
+      }
+    </div>
   </div>
 </section>
 <app-modal [showModal]="isCreateCourseModalOpen" (closeModal)="isCreateCourseModalOpen = false">
