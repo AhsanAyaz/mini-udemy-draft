@@ -15,11 +15,13 @@ import { ModalComponent } from '../components/modal/modal.component';
 import { CreateLectureFormComponent } from '../components/create-lecture-form/create-lecture-form.component';
 import { Observable, map } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
+import { LectureListItemComponent } from '../components/lecture-list-item/lecture-list-item.component';
+import { LoaderComponent } from '../components/loader/loader.component';
 
 @Component({
   selector: 'app-course-detail',
   standalone: true,
-  imports: [ModalComponent, CreateLectureFormComponent, AsyncPipe],
+  imports: [ModalComponent, CreateLectureFormComponent, AsyncPipe, LectureListItemComponent, LoaderComponent],
   templateUrl: './course-detail.component.html',
   styleUrl: './course-detail.component.scss',
 })
@@ -28,18 +30,9 @@ export class CourseDetailComponent implements OnInit {
   firestore = inject(Firestore);
   route = inject(ActivatedRoute);
   course: Course | null = null;
+  isLoadingCourse = false;
   lectures$!: Observable<Lecture[]>;
   isCreateLectureModalOpen = false;
-  // course = {
-  //   name: 'Introduction to Angular',
-  //   description:
-  //     'Learn the fundamentals of Angular to build scalable web applications.',
-  //   lectures: [
-  //     { title: 'Setting up the Environment', duration: '15 min' },
-  //     { title: 'Components and Modules', duration: '30 min' },
-  //     // ... more lectures
-  //   ],
-  // };
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
@@ -53,10 +46,12 @@ export class CourseDetailComponent implements OnInit {
   }
 
   async getCourse(courseId: string) {
+    this.isLoadingCourse = true;
     const courseSnapshot = await getDoc(
       doc(this.firestore, `courses/${courseId}`)
     );
     this.course = courseSnapshot.data() as Course;
+    this.isLoadingCourse = false;
   }
 
   uploadFile() {

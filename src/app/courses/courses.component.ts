@@ -8,6 +8,7 @@ import { Course } from '../types';
 import { Observable } from 'rxjs/internal/Observable';
 import { AsyncPipe } from '@angular/common';
 import { map } from 'rxjs';
+import { LoaderComponent } from '../components/loader/loader.component';
 
 @Component({
   selector: 'app-courses',
@@ -17,6 +18,7 @@ import { map } from 'rxjs';
     ModalComponent,
     CreateCourseFormComponent,
     AsyncPipe,
+    LoaderComponent
   ],
   templateUrl: './courses.component.html',
   styleUrl: './courses.component.scss',

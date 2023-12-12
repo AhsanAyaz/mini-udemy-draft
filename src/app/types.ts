@@ -11,4 +11,5 @@ export type Lecture = {
   title: string;
   duration: string;
   videoUrl: string;
+  description?: string;
 };

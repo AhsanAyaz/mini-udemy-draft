@@ -30,6 +30,7 @@ export class CreateLectureFormComponent {
     this.lectureForm = this.fb.group({
       title: ['', Validators.required],
       duration: ['', Validators.required],
+      description: ['']
     });
   }
 
