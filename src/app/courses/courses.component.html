@@ -1,8 +1,8 @@
 <!-- Page Title -->
 <section class="text-gray-700 body-font min-h-screen-minus-header bg-slate-50 flex flex-col justify-center items-center">
   <div class="container mx-auto flex px-5 py-24 items-center justify-center flex-col">
-    <h1 class="title-font sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Explore Our Courses</h1>
-    <p class="text-base leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
+    <h1 class="title-font text-center sm:text-4xl text-3xl mb-4 font-medium text-gray-900">Explore Our Courses</h1>
+    <p class="text-base text-center leading-relaxed xl:w-2/4 lg:w-3/4 mx-auto">
       Dive into a variety of subjects with courses taught by top instructors.
     </p>
   </div>
@@ -16,18 +16,22 @@
     </button>
   </div>
   <div class="container px-5 py-24 mx-auto">
-    @if (!isLoadingCourses) {
+    @if (courses$ | async) {
       <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-        @for (course of courses; track $index) {
+        @for (course of courses$ | async; track $index) {
           <app-course-card [course]="course"></app-course-card>
         }
         @empty {
           No courses available
         }
       </div>
+    } @else {
+      <div>
+        Loading...
+      </div>
     }
   </div>
 </section>
 <app-modal [showModal]="isCreateCourseModalOpen" (closeModal)="isCreateCourseModalOpen = false">
-  <app-create-course-form></app-create-course-form>
+  <app-create-course-form (formSubmit)="isCreateCourseModalOpen = false"></app-create-course-form>
 </app-modal>

@@ -11,18 +11,13 @@
     <textarea id="description" formControlName="description" class="py-1.5 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"></textarea>
   </div>
 
-  <!-- Course Image Upload -->
   <div>
-    <label for="image" class="block text-sm font-medium text-gray-700">Course Image</label>
-    <div class="mt-1 flex items-center">
-      <span class="inline-block h-24 w-24 rounded-md overflow-hidden {{!image ? 'bg-gray-100' : ''}} relative">
-        @if (image) {
-          <img [src]="image.url" alt="Course Image" class="h-full w-full text-gray-300">
-          <button (click)="deleteFile()" class="close-btn bg-white rounded-md w-6 h-6 absolute top-0 right-0 cursor-pointer hover:text-red-600 z-20 block">&times;</button>
-        }
-      </span>
-      <button type="button" (click)="uploadFile()" class="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Upload Image</button>
-    </div>
+    <label for="category" class="block text-sm font-medium text-gray-700">Course Description</label>
+    <select id="category" formControlName="category" class="py-1.5 px-2 mt-1 block w-full border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      <option value="angular">Angular</option>
+      <option value="react">React</option>
+      <option value="typescript">TypeScript</option>
+    </select>
   </div>
 
   <!-- Submit Button -->

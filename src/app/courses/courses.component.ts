@@ -1,35 +1,40 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, Signal, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { CourseCardComponent } from '../components/course-card/course-card.component';
 import { ModalComponent } from '../components/modal/modal.component';
 import { CreateCourseFormComponent } from '../components/create-course-form/create-course-form.component';
-import { CollectionReference, Firestore, collection, getDocs } from '@angular/fire/firestore';
+import { collectionData, Firestore, collection } from '@angular/fire/firestore';
 import { Course } from '../types';
+import { Observable } from 'rxjs/internal/Observable';
+import { AsyncPipe } from '@angular/common';
+import { map } from 'rxjs';
 
 @Component({
   selector: 'app-courses',
   standalone: true,
-  imports: [CourseCardComponent, ModalComponent, CreateCourseFormComponent],
+  imports: [
+    CourseCardComponent,
+    ModalComponent,
+    CreateCourseFormComponent,
+    AsyncPipe,
+  ],
   templateUrl: './courses.component.html',
-  styleUrl: './courses.component.scss'
+  styleUrl: './courses.component.scss',
 })
 export class CoursesComponent implements OnInit {
-  firestore = inject(Firestore)
+  firestore = inject(Firestore);
   isCreateCourseModalOpen = false;
-  courses: Course[] = [];
+  courses$!: Observable<Course[]>;
   isLoadingCourses = false;
   ngOnInit() {
     this.getCourses();
   }
 
-  async getCourses() {
-    this.isLoadingCourses = true;
-    try {
-      const courses = await getDocs(collection(this.firestore, 'courses'));
-      this.courses = courses.docs.map(snapshot => snapshot.data() as Course);
-    } catch(err) {
-      console.log(err);
-    } finally {
-      this.isLoadingCourses = false;
-    }
+  getCourses() {
+    this.courses$ = collectionData(collection(this.firestore, 'courses')).pipe(
+      map((courses) => {
+        return courses;
+      })
+    ) as Observable<Course[]>;
   }
 }
